@@ -17,6 +17,7 @@
 // serde_no_std leads to alloc via impl, json-schema without std requires alloc
 #[cfg(all(not(feature = "std"), any(feature = "serde_no_std", feature = "json-schema")))]
 extern crate alloc;
+extern crate core;
 
 #[cfg(feature = "fp-conversion")]
 mod fp_conversion;
@@ -39,48 +40,75 @@ pub enum Error {
 construct_uint! {
 	/// 128-bit unsigned integer.
 	#[cfg_attr(feature = "scale-info", derive(TypeInfo))]
+	#[cfg_attr(feature = "rkyv", derive(rkyv::Archive, rkyv::Serialize, rkyv::Deserialize))]
+	#[cfg_attr(feature = "rkyv", archive(compare(PartialEq, PartialOrd)))]
+	#[cfg_attr(feature = "rkyv", archive_attr(derive(Debug, Default, Hash, PartialEq, Eq)))]
 	pub struct U128(2);
 }
 construct_uint! {
 	/// 256-bit unsigned integer.
 	#[cfg_attr(feature = "scale-info", derive(TypeInfo))]
+	#[cfg_attr(feature = "rkyv", derive(rkyv::Archive, rkyv::Serialize, rkyv::Deserialize))]
+	#[cfg_attr(feature = "rkyv", archive(compare(PartialEq, PartialOrd)))]
+	#[cfg_attr(feature = "rkyv", archive_attr(derive(Debug, Default, Hash, PartialEq, Eq)))]
 	pub struct U256(4);
 }
 construct_uint! {
 	/// 512-bits unsigned integer.
 	#[cfg_attr(feature = "scale-info", derive(TypeInfo))]
+	#[cfg_attr(feature = "rkyv", derive(rkyv::Archive, rkyv::Serialize, rkyv::Deserialize))]
+	#[cfg_attr(feature = "rkyv", archive(compare(PartialEq, PartialOrd)))]
+	#[cfg_attr(feature = "rkyv", archive_attr(derive(Debug, Default, Hash, PartialEq, Eq)))]
 	pub struct U512(8);
 }
 
 construct_fixed_hash! {
 	/// Fixed-size uninterpreted hash type with 16 bytes (128 bits) size.
 	#[cfg_attr(feature = "scale-info", derive(TypeInfo))]
+	#[cfg_attr(feature = "rkyv", derive(rkyv::Archive, rkyv::Serialize, rkyv::Deserialize))]
+	#[cfg_attr(feature = "rkyv", archive(compare(PartialEq, PartialOrd)))]
+	#[cfg_attr(feature = "rkyv", archive_attr(derive(Debug, Default, Hash, PartialEq, Eq)))]
 	pub struct H128(16);
 }
 
 construct_fixed_hash! {
 	/// Fixed-size uninterpreted hash type with 20 bytes (160 bits) size.
 	#[cfg_attr(feature = "scale-info", derive(TypeInfo))]
+	#[cfg_attr(feature = "rkyv", derive(rkyv::Archive, rkyv::Serialize, rkyv::Deserialize))]
+	#[cfg_attr(feature = "rkyv", archive(compare(PartialEq, PartialOrd)))]
+	#[cfg_attr(feature = "rkyv", archive_attr(derive(Debug, Default, Hash, PartialEq, Eq)))]
 	pub struct H160(20);
 }
 construct_fixed_hash! {
 	/// Fixed-size uninterpreted hash type with 32 bytes (256 bits) size.
 	#[cfg_attr(feature = "scale-info", derive(TypeInfo))]
+	#[cfg_attr(feature = "rkyv", derive(rkyv::Archive, rkyv::Serialize, rkyv::Deserialize))]
+	#[cfg_attr(feature = "rkyv", archive(compare(PartialEq, PartialOrd)))]
+	#[cfg_attr(feature = "rkyv", archive_attr(derive(Debug, Default, Hash, PartialEq, Eq)))]
 	pub struct H256(32);
 }
 construct_fixed_hash! {
 	/// Fixed-size uninterpreted hash type with 48 bytes (384 bits) size.
 	#[cfg_attr(feature = "scale-info", derive(TypeInfo))]
+	#[cfg_attr(feature = "rkyv", derive(rkyv::Archive, rkyv::Serialize, rkyv::Deserialize))]
+	#[cfg_attr(feature = "rkyv", archive(compare(PartialEq, PartialOrd)))]
+	#[cfg_attr(feature = "rkyv", archive_attr(derive(Debug, Hash, PartialEq, Eq)))]
 	pub struct H384(48);
 }
 construct_fixed_hash! {
 	/// Fixed-size uninterpreted hash type with 64 bytes (512 bits) size.
 	#[cfg_attr(feature = "scale-info", derive(TypeInfo))]
+	#[cfg_attr(feature = "rkyv", derive(rkyv::Archive, rkyv::Serialize, rkyv::Deserialize))]
+	#[cfg_attr(feature = "rkyv", archive(compare(PartialEq, PartialOrd)))]
+	#[cfg_attr(feature = "rkyv", archive_attr(derive(Debug, Hash, PartialEq, Eq)))]
 	pub struct H512(64);
 }
 construct_fixed_hash! {
 	/// Fixed-size uninterpreted hash type with 96 bytes (768 bits) size.
 	#[cfg_attr(feature = "scale-info", derive(TypeInfo))]
+	#[cfg_attr(feature = "rkyv", derive(rkyv::Archive, rkyv::Serialize, rkyv::Deserialize))]
+	#[cfg_attr(feature = "rkyv", archive(compare(PartialEq, PartialOrd)))]
+	#[cfg_attr(feature = "rkyv", archive_attr(derive(Debug, Hash, PartialEq, Eq)))]
 	pub struct H768(96);
 }
 
