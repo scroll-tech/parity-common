@@ -50,6 +50,8 @@ impl_fixed_hash_serde!(H64, 8);
 impl_fixed_hash_codec!(H64, 8);
 
 pub use primitive_types::{H128, H160, H256};
+#[cfg(feature = "rkyv")]
+pub use primitive_types::{ArchivedH128, ArchivedH160, ArchivedH256};
 
 construct_fixed_hash! {
 	#[cfg_attr(feature = "codec", derive(scale_info::TypeInfo))]
@@ -66,6 +68,8 @@ impl_fixed_hash_serde!(H264, 33);
 impl_fixed_hash_codec!(H264, 33);
 
 pub use primitive_types::H512;
+#[cfg(feature = "rkyv")]
+pub use primitive_types::ArchivedH512;
 
 construct_fixed_hash! {
 	#[cfg_attr(feature = "codec", derive(scale_info::TypeInfo))]

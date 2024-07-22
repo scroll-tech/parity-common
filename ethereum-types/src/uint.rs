@@ -31,6 +31,8 @@ impl_uint_serde!(U64, 1);
 impl_uint_codec!(U64, 1);
 
 pub use primitive_types::{U128, U256, U512};
+#[cfg(feature = "rkyv")]
+pub use primitive_types::{ArchivedU128, ArchivedU256, ArchivedU512};
 
 #[cfg(test)]
 mod tests {

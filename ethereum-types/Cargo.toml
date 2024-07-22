@@ -30,5 +30,5 @@ arbitrary = ["ethbloom/arbitrary", "fixed-hash/arbitrary", "uint-crate/arbitrary
 rlp = ["impl-rlp", "ethbloom/rlp", "primitive-types/rlp"]
 codec = ["impl-codec", "ethbloom/codec", "scale-info", "primitive-types/scale-info"]
 num-traits = ["primitive-types/num-traits"]
-rkyv = ["std", "dep:rkyv"]
+rkyv = ["std", "dep:rkyv", "primitive-types/rkyv"]
 
