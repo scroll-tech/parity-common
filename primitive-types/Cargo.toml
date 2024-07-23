@@ -17,7 +17,7 @@ impl-num-traits = { version = "0.1", default-features = false, optional = true }
 impl-rlp = { version = "0.3", default-features = false, optional = true }
 scale-info-crate = { package = "scale-info", version = ">=0.9, <3", features = ["derive"], default-features = false, optional = true }
 schemars = { version = ">=0.8.12", default-features = true, optional = true }
-rkyv = { version = "0.7", optional = true }
+rkyv = { version = "0.7", features = ["validation"], optional = true }
 
 [dev-dependencies]
 num-traits = "0.2"
