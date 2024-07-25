@@ -24,7 +24,7 @@ pub trait BigEndianHash {
 
 construct_fixed_hash! {
 	#[cfg_attr(feature = "rkyv", derive(rkyv::Archive, rkyv::Serialize, rkyv::Deserialize))]
-	#[cfg_attr(feature = "rkyv", archive(compare(PartialEq, PartialOrd), check_bytes))]
+	#[cfg_attr(feature = "rkyv", archive(check_bytes))]
 	#[cfg_attr(feature = "rkyv", archive_attr(derive(Debug, Default, Hash, PartialEq, Eq)))]
 	pub struct H32(4);
 }
@@ -38,7 +38,7 @@ impl_fixed_hash_codec!(H32, 4);
 construct_fixed_hash! {
 	#[cfg_attr(feature = "codec", derive(scale_info::TypeInfo))]
 	#[cfg_attr(feature = "rkyv", derive(rkyv::Archive, rkyv::Serialize, rkyv::Deserialize))]
-	#[cfg_attr(feature = "rkyv", archive(compare(PartialEq, PartialOrd), check_bytes))]
+	#[cfg_attr(feature = "rkyv", archive(check_bytes))]
 	#[cfg_attr(feature = "rkyv", archive_attr(derive(Debug, Hash, PartialEq, Eq)))]
 	pub struct H64(8);
 }
@@ -56,7 +56,7 @@ pub use primitive_types::{ArchivedH128, ArchivedH160, ArchivedH256};
 construct_fixed_hash! {
 	#[cfg_attr(feature = "codec", derive(scale_info::TypeInfo))]
 	#[cfg_attr(feature = "rkyv", derive(rkyv::Archive, rkyv::Serialize, rkyv::Deserialize))]
-	#[cfg_attr(feature = "rkyv", archive(compare(PartialEq, PartialOrd), check_bytes))]
+	#[cfg_attr(feature = "rkyv", archive(check_bytes))]
 	#[cfg_attr(feature = "rkyv", archive_attr(derive(Debug, Hash, PartialEq, Eq)))]
 	pub struct H264(33);
 }
@@ -74,7 +74,7 @@ pub use primitive_types::ArchivedH512;
 construct_fixed_hash! {
 	#[cfg_attr(feature = "codec", derive(scale_info::TypeInfo))]
 	#[cfg_attr(feature = "rkyv", derive(rkyv::Archive, rkyv::Serialize, rkyv::Deserialize))]
-	#[cfg_attr(feature = "rkyv", archive(compare(PartialEq, PartialOrd), check_bytes))]
+	#[cfg_attr(feature = "rkyv", archive(check_bytes))]
 	#[cfg_attr(feature = "rkyv", archive_attr(derive(Debug, Hash, PartialEq, Eq)))]
 	pub struct H520(65);
 }

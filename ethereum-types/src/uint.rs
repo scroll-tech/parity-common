@@ -19,7 +19,7 @@ pub use uint_crate::{FromDecStrErr, FromStrRadixErr, FromStrRadixErrKind};
 construct_uint! {
 	/// Unsigned 64-bit integer.
 	#[cfg_attr(feature = "rkyv", derive(rkyv::Archive, rkyv::Serialize, rkyv::Deserialize))]
-	#[cfg_attr(feature = "rkyv", archive(compare(PartialEq, PartialOrd), check_bytes))]
+	#[cfg_attr(feature = "rkyv", archive(check_bytes))]
 	#[cfg_attr(feature = "rkyv", archive_attr(derive(Debug, Default, Hash, PartialEq, Eq)))]
 	pub struct U64(1);
 }
