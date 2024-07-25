@@ -12,6 +12,8 @@ use impl_codec::impl_uint_codec;
 use impl_rlp::impl_uint_rlp;
 #[cfg(feature = "serialize")]
 use impl_serde::impl_uint_serde;
+#[cfg(feature = "rkyv")]
+use impl_rkyv::impl_transmute_rkyv;
 use uint_crate::*;
 
 pub use uint_crate::{FromDecStrErr, FromStrRadixErr, FromStrRadixErrKind};
@@ -29,6 +31,8 @@ impl_uint_rlp!(U64, 1);
 impl_uint_serde!(U64, 1);
 #[cfg(feature = "codec")]
 impl_uint_codec!(U64, 1);
+#[cfg(feature = "rkyv")]
+impl_transmute_rkyv!(U64);
 
 pub use primitive_types::{U128, U256, U512};
 #[cfg(feature = "rkyv")]
@@ -36,9 +40,11 @@ pub use primitive_types::{ArchivedU128, ArchivedU256, ArchivedU512};
 
 #[cfg(test)]
 mod tests {
-	use super::{U256, U512};
+	use super::*;
 	use serde_json as ser;
 	use std::u64::MAX;
+	#[cfg(feature = "rkyv")]
+	use impl_rkyv::test_transmute_rkyv;
 
 	macro_rules! test_serialize {
 		($name: ident, $test_name: ident) => {
@@ -217,4 +223,7 @@ mod tests {
 		let result = U256([1, 2, 3, 4]).full_mul(U256([5, 6, 7, 8]));
 		assert_eq!(U512([5, 16, 34, 60, 61, 52, 32, 0]), result);
 	}
+
+	#[cfg(feature = "rkyv")]
+	test_transmute_rkyv!(U64);
 }

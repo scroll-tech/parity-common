@@ -16,6 +16,7 @@ primitive-types = { version = "0.12", features = ["byteorder", "rustc-hex"], def
 impl-serde = { version = "0.4.0", default-features = false, optional = true }
 impl-rlp = { version = "0.3", default-features = false, optional = true }
 impl-codec = { version = "0.6.0", default-features = false, optional = true }
+impl-rkyv = { path = "../primitive-types/impls/rkyv", default-features = false, optional = true }
 scale-info = { version = ">=1.0, <3", features = ["derive"], default-features = false, optional = true }
 rkyv = { version = "0.7", features = ["validation"], optional = true }
 
@@ -30,5 +31,5 @@ arbitrary = ["ethbloom/arbitrary", "fixed-hash/arbitrary", "uint-crate/arbitrary
 rlp = ["impl-rlp", "ethbloom/rlp", "primitive-types/rlp"]
 codec = ["impl-codec", "ethbloom/codec", "scale-info", "primitive-types/scale-info"]
 num-traits = ["primitive-types/num-traits"]
-rkyv = ["std", "dep:rkyv", "primitive-types/rkyv"]
+rkyv = ["std", "dep:rkyv", "primitive-types/rkyv", "impl-rkyv"]
 

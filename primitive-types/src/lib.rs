@@ -173,6 +173,38 @@ mod rlp {
 	impl_fixed_hash_rlp!(H768, 96);
 }
 
+#[cfg(feature = "impl-rkyv")]
+mod impl_rkyv {
+	use super::*;
+	use ::impl_rkyv::impl_transmute_rkyv;
+
+	impl_transmute_rkyv!(U128);
+	impl_transmute_rkyv!(U256);
+	impl_transmute_rkyv!(U512);
+	impl_transmute_rkyv!(H128);
+	impl_transmute_rkyv!(H160);
+	impl_transmute_rkyv!(H256);
+	impl_transmute_rkyv!(H384);
+	impl_transmute_rkyv!(H512);
+	impl_transmute_rkyv!(H768);
+
+	#[cfg(test)]
+	mod tests {
+		use ::impl_rkyv::test_transmute_rkyv;
+		use super::*;
+
+		test_transmute_rkyv!(U128);
+		test_transmute_rkyv!(U256);
+		test_transmute_rkyv!(U512);
+		test_transmute_rkyv!(H128);
+		test_transmute_rkyv!(H160);
+		test_transmute_rkyv!(H256);
+		test_transmute_rkyv!(H384);
+		test_transmute_rkyv!(H512);
+		test_transmute_rkyv!(H768);
+	}
+}
+
 impl_fixed_hash_conversions!(H256, H160);
 
 impl U128 {
