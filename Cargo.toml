@@ -15,3 +15,9 @@ members = [
 	"ethereum-types",
 	"ethbloom",
 ]
+
+resolver = "2"
+
+[patch.crates-io]
+primitive-types = { git = "https://github.com/scroll-tech/parity-common.git", branch = "feat/rkyv" }
+ethereum-types = { git = "https://github.com/scroll-tech/parity-common.git", branch = "feat/rkyv" }

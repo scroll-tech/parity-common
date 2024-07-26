@@ -14,6 +14,8 @@ use impl_codec::impl_fixed_hash_codec;
 use impl_rlp::impl_fixed_hash_rlp;
 #[cfg(feature = "serialize")]
 use impl_serde::impl_fixed_hash_serde;
+#[cfg(feature = "rkyv")]
+use impl_rkyv::impl_transmute_rkyv;
 
 pub trait BigEndianHash {
 	type Uint;
@@ -22,16 +24,26 @@ pub trait BigEndianHash {
 	fn into_uint(&self) -> Self::Uint;
 }
 
-construct_fixed_hash! { pub struct H32(4); }
+construct_fixed_hash! {
+	#[cfg_attr(feature = "rkyv", derive(rkyv::Archive, rkyv::Serialize, rkyv::Deserialize))]
+	#[cfg_attr(feature = "rkyv", archive(check_bytes))]
+	#[cfg_attr(feature = "rkyv", archive_attr(derive(Debug, Default, Hash, PartialEq, Eq)))]
+	pub struct H32(4);
+}
 #[cfg(feature = "rlp")]
 impl_fixed_hash_rlp!(H32, 4);
 #[cfg(feature = "serialize")]
 impl_fixed_hash_serde!(H32, 4);
 #[cfg(feature = "codec")]
 impl_fixed_hash_codec!(H32, 4);
+#[cfg(feature = "rkyv")]
+impl_transmute_rkyv!(H32);
 
 construct_fixed_hash! {
 	#[cfg_attr(feature = "codec", derive(scale_info::TypeInfo))]
+	#[cfg_attr(feature = "rkyv", derive(rkyv::Archive, rkyv::Serialize, rkyv::Deserialize))]
+	#[cfg_attr(feature = "rkyv", archive(check_bytes))]
+	#[cfg_attr(feature = "rkyv", archive_attr(derive(Debug, Hash, PartialEq, Eq)))]
 	pub struct H64(8);
 }
 #[cfg(feature = "rlp")]
@@ -40,11 +52,18 @@ impl_fixed_hash_rlp!(H64, 8);
 impl_fixed_hash_serde!(H64, 8);
 #[cfg(feature = "codec")]
 impl_fixed_hash_codec!(H64, 8);
+#[cfg(feature = "rkyv")]
+impl_transmute_rkyv!(H64);
 
 pub use primitive_types::{H128, H160, H256};
+#[cfg(feature = "rkyv")]
+pub use primitive_types::{ArchivedH128, ArchivedH160, ArchivedH256};
 
 construct_fixed_hash! {
 	#[cfg_attr(feature = "codec", derive(scale_info::TypeInfo))]
+	#[cfg_attr(feature = "rkyv", derive(rkyv::Archive, rkyv::Serialize, rkyv::Deserialize))]
+	#[cfg_attr(feature = "rkyv", archive(check_bytes))]
+	#[cfg_attr(feature = "rkyv", archive_attr(derive(Debug, Hash, PartialEq, Eq)))]
 	pub struct H264(33);
 }
 #[cfg(feature = "rlp")]
@@ -53,11 +72,18 @@ impl_fixed_hash_rlp!(H264, 33);
 impl_fixed_hash_serde!(H264, 33);
 #[cfg(feature = "codec")]
 impl_fixed_hash_codec!(H264, 33);
+#[cfg(feature = "rkyv")]
+impl_transmute_rkyv!(H264);
 
 pub use primitive_types::H512;
+#[cfg(feature = "rkyv")]
+pub use primitive_types::ArchivedH512;
 
 construct_fixed_hash! {
 	#[cfg_attr(feature = "codec", derive(scale_info::TypeInfo))]
+	#[cfg_attr(feature = "rkyv", derive(rkyv::Archive, rkyv::Serialize, rkyv::Deserialize))]
+	#[cfg_attr(feature = "rkyv", archive(check_bytes))]
+	#[cfg_attr(feature = "rkyv", archive_attr(derive(Debug, Hash, PartialEq, Eq)))]
 	pub struct H520(65);
 }
 #[cfg(feature = "rlp")]
@@ -66,6 +92,8 @@ impl_fixed_hash_rlp!(H520, 65);
 impl_fixed_hash_serde!(H520, 65);
 #[cfg(feature = "codec")]
 impl_fixed_hash_codec!(H520, 65);
+#[cfg(feature = "rkyv")]
+impl_transmute_rkyv!(H520);
 
 macro_rules! impl_uint_conversions {
 	($hash: ident, $uint: ident) => {
@@ -92,8 +120,10 @@ impl_uint_conversions!(H512, U512);
 
 #[cfg(test)]
 mod tests {
-	use super::{H160, H256};
+	use super::*;
 	use serde_json as ser;
+	#[cfg(feature = "rkyv")]
+	use impl_rkyv::test_transmute_rkyv;
 
 	#[test]
 	fn test_serialize_h160() {
@@ -156,4 +186,16 @@ mod tests {
 		assert!(ser::from_str::<H256>("\"0\"").unwrap_err().is_data());
 		assert!(ser::from_str::<H256>("\"10\"").unwrap_err().is_data());
 	}
+
+	#[cfg(feature = "rkyv")]
+	test_transmute_rkyv!(H32);
+
+	#[cfg(feature = "rkyv")]
+	test_transmute_rkyv!(H64);
+
+	#[cfg(feature = "rkyv")]
+	test_transmute_rkyv!(H264);
+
+	#[cfg(feature = "rkyv")]
+	test_transmute_rkyv!(H520);
 }
